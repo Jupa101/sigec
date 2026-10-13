@@ -60,7 +60,8 @@ def run(sql, *a):
     except sqlite3.IntegrityError:
         return False
 def init_db():
-    c = sqlite3.connect(DB); c.executescript(SCHEMA)
+    c = sqlite3.connect(DB, timeout=30); c.executescript(SCHEMA)
+    c.execute("BEGIN IMMEDIATE")  # serializa el arranque cuando hay varios procesos
     if not c.execute("SELECT 1 FROM usuario").fetchone():
         c.execute("INSERT INTO usuario(nombre,usuario,contrasena_hash,rol) VALUES(?,?,?,'admin')",
                   ("Administrador RR.HH.", os.environ.get("ADMIN_USER", "admin"),

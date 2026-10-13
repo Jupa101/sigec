@@ -6,4 +6,4 @@ COPY app.py .
 ENV DB_PATH=/data/sigec.db PORT=8000
 RUN mkdir /data
 VOLUME /data
-CMD ["sh","-c","gunicorn -w 2 -b 0.0.0.0:${PORT} app:app"]
+CMD ["sh","-c","gunicorn -w 1 --threads 4 -b 0.0.0.0:${PORT} app:app"]
