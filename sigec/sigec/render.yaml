@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: sigec
+    runtime: docker
+    plan: free
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ADMIN_PASS
+        sync: false
+      - key: SEED_DEMO
+        value: "1"

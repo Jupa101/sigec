@@ -1,0 +1,14 @@
+services:
+  sigec:
+    build: .
+    ports:
+      - "80:8000"
+    environment:
+      SECRET_KEY: ${SECRET_KEY:?Define SECRET_KEY en el archivo .env}
+      ADMIN_USER: ${ADMIN_USER:-admin}
+      ADMIN_PASS: ${ADMIN_PASS:?Define ADMIN_PASS en el archivo .env}
+    volumes:
+      - sigec-data:/data
+    restart: unless-stopped
+volumes:
+  sigec-data:
